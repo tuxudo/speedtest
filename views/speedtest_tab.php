@@ -1,3 +1,8 @@
+<div id="lister" style="font-size: large; float: right;">
+    <a href="/show/listing/speedtest/speedtest" title="List">
+        <i class="btn btn-default tab-btn fa fa-list"></i>
+    </a>
+</div>
 <div id="speedtest-tab"></div>
 <h2 data-i18n="speedtest.speedtest"></h2>
 <div id="speedtest-msg" data-i18n="listing.loading" class="col-lg-12 text-center"></div>
@@ -16,7 +21,7 @@ $(document).on('appReady', function(){
 
             $.each(data, function(i,d){
                 // Generate rows from data
-                var rows = ''
+                var rows = '';
                 var table_header_name = ''
                 for (var prop in d){
                     // Do nothing for empty values to blank them
@@ -26,14 +31,18 @@ $(document).on('appReady', function(){
                     // Format bits per second
                     } else if(prop == "dl_throughput"){
                         dl_throughput = fileSize_bits(parseFloat(d[prop]), 2)+'ps'
+                        rnd_dl_throughput = fileSize_bits(parseFloat(d[prop]), 0)+'⬇︎'
                         rows = rows + '<tr><th>'+i18n.t('speedtest.'+prop)+'</th><td><span title="'+ fileSize(( parseFloat(d[prop])/ 8), 2) + 'ytes/s' + '" </span>' + dl_throughput + '</td></tr>';
                         // Update the tab badge count
                         $('#speedtest-cnt').text(dl_throughput);
-                        table_header_name = table_header_name + dl_throughput + " - "
+                        table_header_name = table_header_name + rnd_dl_throughput + " - "
 
                     // Format bits per second
                     } else if(prop == "ul_throughput"){
+                        ul_throughput = fileSize_bits(parseFloat(d[prop]), 2)+'ps'
+                        rnd_ul_throughput = fileSize_bits(parseFloat(d[prop]), 0)+'⬆︎'
                         rows = rows + '<tr><th>'+i18n.t('speedtest.'+prop)+'</th><td><span title="'+ fileSize(( parseFloat(d[prop])/ 8), 2) + 'ytes/s' + '" </span>' + fileSize_bits(parseFloat(d[prop]), 2) + 'ps</td></tr>';
+                        table_header_name = table_header_name + rnd_ul_throughput + " - "
 
                     // Format bytes
                     } else if(prop == "dl_bytes_transferred" || prop == "ul_bytes_transferred"){

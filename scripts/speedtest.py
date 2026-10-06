@@ -303,8 +303,8 @@ def main():
 
     # Check if getting speedtest module is enabled, by default it is disabled
     speedtest_enabled = str(get_pref_value('speedtest_enabled', 'MunkiReport'))
-    if speedtest_enabled == "False":
-        print('Error: The speedtest module is disabled')
+    if speedtest_enabled == "False" or speedtest_enabled == "":
+        print('Error: The speedtest module is disabled or preference not found')
         exit(0)
 
     # Check OS version and skip if too old, needs at least macOS Monterey
